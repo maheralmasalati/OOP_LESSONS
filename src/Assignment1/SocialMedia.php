@@ -1,57 +1,66 @@
 <?php
 
-abstract class SocialMediaIterface
+Interface SocialMediaIterface
 {
-    abstract public function CreatPost($artical):string;
-    abstract public function Login($username,$password):string;
+    public function CreatPost($artical):string;
+    public function Login($username,$password):string;
+    public function Logout();
+
+}
+
+class FaceBook implements SocialMediaIterface
+{
+
+    public function CreatPost($artical): string
+    {
+        return $artical."\n";
+    }
+
+    public function Login($username, $password): string
+    {
+        return $username." Login to Facebook \n";
+    }
     public function Logout()
     {
-        echo "You Are Logout Now";
+        echo "You Are Logout from Facebook \n";
     }
 
 }
 
-class FaceBook extends SocialMediaIterface
+class Twitter implements SocialMediaIterface
 {
 
-    public function CreatPost($artical=''): string
+    public function CreatPost($artical): string
     {
-        return "Artical about animals \n";
+        return $artical."\n";
     }
 
     public function Login($username, $password): string
     {
-        return " Login to Facebook \n";
+        return $username." Login to Twitter \n";
+    }
+    public function Logout()
+    {
+        echo "You Are Logout from Twitter \n";
     }
 
 }
 
-class Twitter extends SocialMediaIterface
+class LinkedIn implements SocialMediaIterface
 {
 
-    public function CreatPost($artical=''): string
+    public function CreatPost($artical): string
     {
-        return "Artical about People \n";
+        return $artical."\n";
     }
 
     public function Login($username, $password): string
     {
-        return " Login to Twitter \n";
+        return $username." Login to LinkedIn \n";
     }
-
-}
-
-class LinkedIn extends SocialMediaIterface
-{
-
-    public function CreatPost($artical=''): string
+    public function Logout()
     {
-        return "Artical about Jobs \n";
-    }
-
-    public function Login($username, $password): string
-    {
-        return " Login to LinkedIn \n";
+        echo "You Are Logout from LinkedIn \n";
     }
 
 }
@@ -60,14 +69,13 @@ class Ineracte
 {
     public function setSocialmediaObj(SocialMediaIterface $SMIterface)
     {
-        echo $SMIterface->Login("Maher","123");
-
-        echo $SMIterface->CreatPost();
-
-        echo $SMIterface->Logout();
+        return $SMIterface;
     }
 }
 
 
 $obj = new Ineracte();
-echo $obj->setSocialmediaObj(new LinkedIn());
+$obj2=$obj->setSocialmediaObj(new Twitter());
+echo $obj2->Login("maher","123");
+echo $obj2->CreatPost("Hi Twitter");
+echo $obj2->Logout();
